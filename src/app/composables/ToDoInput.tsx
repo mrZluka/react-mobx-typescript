@@ -1,47 +1,42 @@
 /**
  * created by mrzluka on 27.01.2022
  */
-import { StoreComponent } from "../components/base/StoreComponent";
-import { withStore } from "../store/hooks";
-import React from "react";
+import { ReactElement, useRef } from "react";
 import { DoToInput, DoToInputContainer } from "./ToDoInput.style";
-import { boundMethod } from "../utils";
+import { useStores } from "../store/providers/RootProvider";
 
-class ToDoInput extends StoreComponent<{}> {
+function ToDoInput(): ReactElement {
 
-    inputElement = React.createRef<HTMLInputElement>();
+    const inputElement = useRef<HTMLInputElement | null>(null);
+    const store = useStores();
 
-    @boundMethod
-    add() {
-        const val = this.inputElement.current?.value as string;
+    const add = () => {
+        const val = inputElement.current?.value as string;
         if (val) {
-            this.props.store.todoStore.addTodoItem(val);
+            store.todoStore.addTodoItem(val);
         }
-
-        this.clear();
+        clear();
     }
 
-    @boundMethod
-    clear() {
-        if (this.inputElement.current) {
-            this.inputElement.current.focus();
-            this.inputElement.current.value = "";
+    const clear = () => {
+        const input = inputElement.current;
+        if (input) {
+            input.focus();
+            input.value = "";
         }
     }
 
-    render() {
-        return (
-            <DoToInputContainer>
-                <label htmlFor={"inp"}>Add item</label>
-                <DoToInput ref={this.inputElement} type={"text"} name={"inp"}/>
-                <div>
-                    <button onClick={this.add}>Add</button>
-                    <button onClick={this.clear}>Clear</button>
-                </div>
+    return (
+        <DoToInputContainer>
+            <label htmlFor={"inp"}>Add item</label>
+            <DoToInput ref={inputElement} type={"text"} name={"inp"}/>
+            <div>
+                <button onClick={add}>Add</button>
+                <button onClick={clear}>Clear</button>
+            </div>
 
-            </DoToInputContainer>
-        );
-    }
+        </DoToInputContainer>
+    );
 }
 
-export default withStore(ToDoInput);
+export default ToDoInput;

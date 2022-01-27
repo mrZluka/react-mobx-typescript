@@ -2,7 +2,7 @@
  * created by mrzluka on 26.01.2022
  */
 
-import React, { ComponentType } from 'react';
+import React, { ComponentType, FunctionComponent } from "react";
 /**
  * https://reactjs.org/docs/higher-order-components.html#static-methods-must-be-copied-over
  */
@@ -12,6 +12,10 @@ import { useStores } from "./providers/RootProvider";
 
 export type TWithStoreHOC = <P extends unknown>(
     Component: ComponentType<P>,
+) => (props: P) => JSX.Element;
+
+export type TWithStoreFuncHOC = <P extends {store?: any}>(
+    Component: FunctionComponent<P>
 ) => (props: P) => JSX.Element;
 
 export const withStore: TWithStoreHOC = (WrappedComponent) => (props) => {
@@ -26,6 +30,15 @@ export const withStore: TWithStoreHOC = (WrappedComponent) => (props) => {
     })`;
 
     hoistNonReactStatics(ComponentWithStore, WrappedComponent);
+
+    return <ComponentWithStore />;
+}
+
+export const withStoreF: TWithStoreFuncHOC = (WrappedComponent) => (props) => {
+    const ComponentWithStore = () => {
+        const store = useStores();
+        return <WrappedComponent {...props} store={store} />;
+    };
 
     return <ComponentWithStore />;
 }
