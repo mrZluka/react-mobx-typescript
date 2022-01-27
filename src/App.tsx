@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { RootStoreProvider } from "./app/store/providers/RootProvider";
+import { RootStore } from "./app/store/RootStore";
+import TodoList from "./app/composables/TodoList";
+import ToDoInput from "./app/composables/ToDoInput";
+import { AppContainer } from "./AppStyle";
+
+const store = new RootStore();
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <AppContainer className="App">
+            <header className="App-header">
+                <h2>TypeScript MobX todo</h2>
+            </header>
+            <RootStoreProvider store={store}>
+                <AppContainer>
+                    <ToDoInput/>
+                    <TodoList/>
+                </AppContainer>
+            </RootStoreProvider>
+        </AppContainer>
+    );
 }
 
 export default App;
