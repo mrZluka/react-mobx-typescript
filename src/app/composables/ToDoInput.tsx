@@ -7,7 +7,7 @@ import React from "react";
 import { DoToInput, DoToInputContainer } from "./style/StyleToDoInput";
 import { boundMethod } from "../utils";
 
-class ToDoInput extends StoreComponent<any> {
+class ToDoInput extends StoreComponent<{}> {
 
     inputElement = React.createRef<HTMLInputElement>();
 

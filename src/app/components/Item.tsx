@@ -9,7 +9,7 @@ class Item extends Component<{
     itemData: IToDoItem,
     onStatusChange: (id: number, isDone: boolean) => void;
     onRemove: (id: number) => void;
-}, any> {
+}, never> {
 
     @boundMethod
     onStatusChange(e: unknown) {

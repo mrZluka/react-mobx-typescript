@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import { RootStoreProvider } from "./app/store/providers/RootProvider";
-import { RootStore } from "./app/store/RootStore";
-import TodoList from "./app/composables/TodoList";
-import ToDoInput from "./app/composables/ToDoInput";
+import { RootStoreProvider } from "./store/providers/RootProvider";
+import { RootStore } from "./store/RootStore";
+import TodoList from "./composables/TodoList";
+import ToDoInput from "./composables/ToDoInput";
 import { AppContainer } from "./AppStyle";
 
 const store = new RootStore();
