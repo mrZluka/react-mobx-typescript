@@ -4,7 +4,7 @@
 import { StoreComponent } from "../components/base/StoreComponent";
 import { withStore } from "../store/hooks";
 import React from "react";
-import { DoToInput, DoToInputContainer } from "./style/StyleToDoInput";
+import { DoToInput, DoToInputContainer } from "./ToDoInput.style";
 import { boundMethod } from "../utils";
 
 class ToDoInput extends StoreComponent<{}> {
